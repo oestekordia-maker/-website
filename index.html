@@ -3,305 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OESTE Café Bar Restaurant | Full Summer Menu</title>
+    <title>OESTE | Full Summer Menu</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Νέα Καλοκαιρινή Παλέτα OESTE */
-            --bg-color: #f0f8ff; /* Alice Blue - Πολύ ανοιχτό, δροσερό γαλάζιο */
-            --text-color: #333333; /* Σκούρο γκρι για κείμενο (πιο μαλακό από μαύρο) */
-            --accent-color: #008080; /* Teal/Τιρκουάζ - Ζωντανό χρώμα της θάλασσας */
-            --card-bg: #ffffff; /* Λευκό για τις κάρτες των πιάτων */
-            --success: #28a745; /* Πράσινο για την κλήση */
+            --bg-color: #f0f8ff;
+            --text-color: #333;
+            --accent-color: #008080;
+            --card-bg: #ffffff;
+            --success: #28a745;
+            --insta: #E1306C;
         }
 
-        body { font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; color: var(--text-color); background-color: var(--bg-color); scroll-behavior: smooth; overflow-x: hidden; }
-        
-        /* Language Switcher */
-        .lang-switch { display: flex; justify-content: center; gap: 10px; padding: 12px; background: #fff; position: sticky; top: 0; z-index: 3000; border-bottom: 2px solid var(--accent-color); }
-        .lang-btn { background: none; border: 1px solid var(--accent-color); color: var(--accent-color); padding: 6px 15px; cursor: pointer; font-size: 0.85em; border-radius: 4px; text-transform: uppercase; transition: 0.3s; }
-        .lang-btn.active { background: var(--accent-color); color: #fff; font-weight: bold; border-color: var(--accent-color); }
+        body { font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; color: var(--text-color); background-color: var(--bg-color); scroll-behavior: smooth; }
 
-        /* Header with Logo & Slideshow */
-        header { position: relative; width: 100%; height: 50vh; overflow: hidden; display: flex; align-items: center; justify-content: center; border-bottom: 3px solid var(--accent-color); }
-        .logo { max-width: 200px; height: auto; position: relative; z-index: 100; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
+        /* Σταθερή μπάρα πάνω */
+        .top-bar {
+            position: sticky;
+            top: 0;
+            z-index: 3000;
+            background: rgba(255, 255, 255, 0.95);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        .logo-small { height: 45px; width: auto; }
+
+        .action-buttons { display: flex; gap: 8px; }
+        .action-btn { 
+            text-decoration: none; 
+            color: #fff; 
+            padding: 6px 10px; 
+            border-radius: 5px; 
+            font-size: 0.75em; 
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .btn-call { background: var(--success); }
+        .btn-map { background: var(--accent-color); }
+        .btn-insta { background: var(--insta); }
 
         /* Slideshow */
-        .slideshow { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
-        .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; transition: opacity 1s ease-in-out; }
+        .hero { position: relative; width: 100%; height: 40vh; overflow: hidden; }
+        .slideshow { position: absolute; width: 100%; height: 100%; }
+        .slide { position: absolute; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; transition: opacity 1s ease-in-out; }
         .slide.active { opacity: 1; }
-        
-        /* Τιρκουάζ overlay για καλοκαιρινή αίσθηση */
-        .slide-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,128,128,0.3); } 
+        .slide-overlay { position: absolute; width: 100%; height: 100%; background: rgba(0,128,128,0.2); }
 
         /* Navigation */
-        .nav-sections { background: #fff; display: flex; justify-content: start; gap: 8px; padding: 15px; overflow-x: auto; white-space: nowrap; position: sticky; top: 52px; z-index: 2000; border-bottom: 1px solid #ddd; }
-        .btn-nav { text-decoration: none; padding: 10px 18px; background: var(--card-bg); color: var(--accent-color); border-radius: 4px; font-size: 0.75em; font-weight: 700; text-transform: uppercase; border: 1px solid var(--accent-color); transition: 0.3s; }
-        .btn-nav:hover { background: var(--accent-color); color: #fff; }
+        .nav-sections { background: #fff; display: flex; gap: 8px; padding: 12px; overflow-x: auto; border-bottom: 1px solid #ddd; position: sticky; top: 65px; z-index: 2000; }
+        .btn-nav { text-decoration: none; padding: 8px 12px; border: 1px solid var(--accent-color); color: var(--accent-color); border-radius: 4px; font-size: 0.7em; font-weight: bold; white-space: nowrap; }
 
-        /* Floating Call Button */
-        .mobile-call-tap { position: fixed; bottom: 25px; right: 25px; background: var(--success); color: white; padding: 18px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; box-shadow: 0 5px 20px rgba(0,0,0,0.3); z-index: 2000; display: flex; align-items: center; gap: 10px; font-size: 1.1em; transition: 0.3s; }
-        .mobile-call-tap:hover { transform: scale(1.05); }
-
-        .container { max-width: 1000px; margin: 0 auto; padding: 10px 20px 120px 20px; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 10px 20px 100px; }
+        .cat-title { text-align: center; color: var(--accent-color); border-bottom: 2px solid var(--accent-color); padding-bottom: 8px; margin: 40px 0 20px; font-family: 'Playfair Display', serif; text-transform: uppercase; font-size: 1.4em; }
         
-        .cat-title { text-align: center; text-transform: uppercase; letter-spacing: 3px; margin: 60px 0 30px; border-bottom: 3px solid var(--accent-color); padding-bottom: 10px; font-size: 1.6em; color: var(--accent-color); font-family: 'Playfair Display', serif; }
-        
-        /* Menu Items - Clean Text cards */
-        .menu-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
-        .item { padding: 20px; background: var(--card-bg); border-radius: 8px; border: 1px solid #ddd; transition: 0.3s; display: flex; flex-direction: column; cursor: default; }
-        .item:hover { border-color: var(--accent-color); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,128,128,0.1); }
-        .item-name { font-weight: 700; font-size: 1.15em; color: var(--text-color); margin-bottom: 6px; }
-        .item-desc { font-size: 0.9em; color: #666; font-style: italic; line-height: 1.4; }
+        .menu-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+        .item { background: #fff; padding: 15px; border-radius: 8px; border-left: 5px solid var(--accent-color); box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: 0.3s; }
+        .item:hover { transform: translateY(-2px); }
+        .item-name { font-weight: bold; display: block; margin-bottom: 4px; font-size: 1.05em; }
+        .item-desc { font-size: 0.85em; color: #666; font-style: italic; line-height: 1.4; }
 
-        footer { background: #fff; color: var(--text-color); padding: 50px 20px; text-align: center; border-top: 2px solid var(--accent-color); }
-        .footer-info h3 { font-family: 'Playfair Display', serif; color: var(--accent-color); font-size: 1.8em; margin-bottom: 15px; }
-        .footer-info p { margin: 10px 0; font-size: 1em; opacity: 0.9; }
-        .map-btn { display: inline-block; margin-top: 20px; color: #fff; background: var(--accent-color); padding: 12px 25px; text-decoration: none; border-radius: 4px; font-weight: bold; text-transform: uppercase; transition: 0.3s; }
-        .map-btn:hover { background: var(--text-color); }
+        .lang-switch { display: flex; justify-content: center; gap: 15px; padding: 8px; background: #f8f8f8; font-size: 0.75em; border-bottom: 1px solid #eee; }
+        .lang-btn { cursor: pointer; border: none; background: none; font-weight: bold; color: #999; text-transform: uppercase; }
+        .lang-btn.active { color: var(--accent-color); border-bottom: 1px solid var(--accent-color); }
 
-        /* Tablets & Desktop layout */
-        @media (min-width: 768px) {
-            .menu-grid { grid-template-columns: 1fr 1fr; }
-            .logo { max-width: 220px; }
-        }
-        
-        /* Language Hiding */
-        .lang-en { display: none; }
-        [lang="en"] .lang-en { display: block; }
+        @media (min-width: 768px) { .menu-grid { grid-template-columns: 1fr 1fr; } }
+
+        /* Language Logic */
         [lang="en"] .lang-el { display: none; }
-        [lang="en"] span.lang-en { display: inline; }
-        [lang="en"] span.lang-el { display: none; }
+        body:not([lang="en"]) .lang-en { display: none; }
     </style>
 </head>
-<body lang="el">
+<body>
 
 <div class="lang-switch">
-    <button id="btn-el" class="lang-btn active" onclick="setLang('el')">Ελληνικά</button>
-    <button id="btn-en" class="lang-btn" onclick="setLang('en')">English</button>
+    <button class="lang-btn active" id="btn-el" onclick="setLang('el')">Ελληνικά</button>
+    <button class="lang-btn" id="btn-en" onclick="setLang('en')">English</button>
 </div>
 
-<header>
+<div class="top-bar">
+    <img src="logo.png" alt="OESTE" class="logo-small">
+    <div class="action-buttons">
+        <a href="tel:+302721062888" class="action-btn btn-call">📞 <span class="lang-el">Κλήση</span><span class="lang-en">Call</span></a>
+        <a href="https://share.google/38fZHFV6DqOk2HAKX" target="_blank" class="action-btn btn-map">📍 <span class="lang-el">Χάρτης</span><span class="lang-en">Map</span></a>
+        <a href="https://www.instagram.com/oeste.kalamata" target="_blank" class="action-btn btn-insta">📸 Insta</a>
+    </div>
+</div>
+
+<div class="hero">
     <div class="slideshow">
         <div class="slide active" style="background-image: url('slide1.jpeg');"></div>
         <div class="slide" style="background-image: url('slide2.jpeg');"></div>
         <div class="slide" style="background-image: url('slide3.jpeg');"></div>
-        <div class="slide-overlay"></div> </div>
-    <img src="logo.png" alt="OESTE Logo" class="logo">
-</header>
-
-<a href="tel:+302721062888" class="mobile-call-tap">
-    <span class="lang-el">📞 Κράτηση</span>
-    <span class="lang-en">📞 Reservation</span>
-</a>
+        <div class="slide-overlay"></div>
+    </div>
+</div>
 
 <div class="nav-sections">
-    <a href="#salads" class="btn-nav"><span class="lang-el">Σαλάτες</span><span class="lang-en">Salads</span></a>
-    <a href="#appetizers" class="btn-nav"><span class="lang-el">Ορεκτικά</span><span class="lang-en">Appetizers</span></a>
-    <a href="#cheese" class="btn-nav"><span class="lang-el">Τυριά</span><span class="lang-en">Cheese</span></a>
-    <a href="#seafood" class="btn-nav"><span class="lang-el">Θαλασσινά</span><span class="lang-en">Seafood</span></a>
-    <a href="#meat" class="btn-nav"><span class="lang-el">Κρεατικά</span><span class="lang-en">Meat</span></a>
-    <a href="#pasta" class="btn-nav"><span class="lang-el">Ζυμαρικά</span><span class="lang-en">Pasta</span></a>
+    <a href="#salads" class="btn-nav"><span class="lang-el">ΣΑΛΑΤΕΣ</span><span class="lang-en">SALADS</span></a>
+    <a href="#appetizers" class="btn-nav"><span class="lang-el">ΟΡΕΚΤΙΚΑ</span><span class="lang-en">APPETIZERS</span></a>
+    <a href="#cheese" class="btn-nav"><span class="lang-el">ΤΥΡΙΑ</span><span class="lang-en">CHEESE</span></a>
+    <a href="#seafood" class="btn-nav"><span class="lang-el">ΘΑΛΑΣΣΙΝΑ</span><span class="lang-en">SEAFOOD</span></a>
+    <a href="#meat" class="btn-nav"><span class="lang-el">ΚΡΕΑΤΙΚΑ</span><span class="lang-en">MEAT</span></a>
+    <a href="#pasta" class="btn-nav"><span class="lang-el">ΖΥΜΑΡΙΚΑ</span><span class="lang-en">PASTA</span></a>
 </div>
 
 <div class="container">
 
     <h2 class="cat-title" id="salads"><span class="lang-el">Σαλάτες</span><span class="lang-en">Salads</span></h2>
     <div class="menu-grid">
-        <div class="item">
-            <span class="item-name"><span class="lang-el">Οέστε 🔥</span><span class="lang-en">Oeste Special 🔥</span></span>
-            <span class="item-desc"><span class="lang-el">Ντομάτα, ψητές πιπεριές Φλωρίνης, κρεμμύδι και τριμμένη φέτα.</span><span class="lang-en">Tomato, roasted Florina peppers, onion, crumbled feta.</span></span>
-        </div>
-        <div class="item">
-            <span class="item-name"><span class="lang-el">Χωριάτικη</span><span class="lang-en">Greek Salad</span></span>
-            <span class="item-desc"><span class="lang-el">Ντομάτα, αγγούρι, κρεμμύδι, φέτα Μεσσηνίας και ελιές.</span><span class="lang-en">Traditional Greek salad with feta and Kalamata olives.</span></span>
-        </div>
-        <div class="item">
-            <span class="item-name"><span class="lang-el">Ντάκος</span><span class="lang-en">Dakos</span></span>
-            <span class="item-desc"><span class="lang-el">Παξιμάδι, τριμμένη ντομάτα, φέτα και ρίγανη.</span><span class="lang-en">Cretan rusk with grated tomato, feta and oregano.</span></span>
-        </div>
-        <div class="item">
-            <span class="item-name"><span class="lang-el">Καίσαρα με Κοτόπουλο</span><span class="lang-en">Chicken Caesar</span></span>
-            <span class="item-desc"><span class="lang-el">Μαρούλι, κοτόπουλο, κρούτον και αυθεντική σος.</span><span class="lang-en">Lettuce, chicken slices, croutons and Caesar dressing.</span></span>
-        </div>
-        <div class="item">
-            <span class="item-name"><span class="lang-el">Χόρτα</span><span class="lang-en">Seasonal Greens</span></span>
-            <span class="item-desc"><span class="lang-el">Βραστά χόρτα εποχής με ελαιόλαδο και λεμόνι.</span><span class="lang-en">Fresh seasonal boiled greens with olive oil.</span></span>
-        </div>
+        <div class="item"><span class="item-name">Οέστε 🔥</span><span class="item-desc"><span class="lang-el">Ντομάτα, ψητές πιπεριές Φλωρίνης, κρεμμύδι, τριμμένη φέτα.</span><span class="lang-en">Tomato, roasted Florina peppers, onion, crumbled feta.</span></span></div>
+        <div class="item"><span class="item-name">Χωριάτικη</span><span class="item-desc"><span class="lang-el">Ντομάτα, αγγούρι, κρεμμύδι, φέτα Μεσσηνίας, ελιές.</span><span class="lang-en">Greek salad with local feta and olives.</span></span></div>
+        <div class="item"><span class="item-name">Ντάκος</span><span class="item-desc"><span class="lang-el">Παξιμάδι, τριμμένη ντομάτα, φέτα, ρίγανη.</span><span class="lang-en">Cretan rusk with tomato, feta, and oregano.</span></span></div>
+        <div class="item"><span class="item-name">Καίσαρα</span><span class="item-desc"><span class="lang-el">Μαρούλι, κοτόπουλο, κρούτον, αυθεντική σος.</span><span class="lang-en">Lettuce, chicken, croutons, Caesar dressing.</span></span></div>
+        <div class="item"><span class="item-name">Χόρτα Εποχής</span><span class="item-desc"><span class="lang-el">Φρέσκα βραστά χόρτα με ελαιόλαδο και λεμόνι.</span><span class="lang-en">Boiled seasonal greens with olive oil.</span></span></div>
     </div>
 
     <h2 class="cat-title" id="appetizers"><span class="lang-el">Ορεκτικά</span><span class="lang-en">Appetizers</span></h2>
     <div class="menu-grid">
-        <div class="item">
-            <span class="item-name"><span class="lang-el">Τυροκαυτερή</span><span class="lang-en">Spicy Feta Dip</span></span>
-            <span class="item-desc"><span class="lang-el">Πικάντικη κρέμα με φέτα και καυτερή πιπεριά.</span><span class="lang-en">Spicy cheese cream with hot peppers.</span></span>
-        </div>
-        <div class="item">
-            <span class="item-name"><span class="lang-el">Τζατζίκι</span><span class="lang-en">Tzatziki</span></span>
-            <span class="item-desc"><span class="lang-el">Δροσερή σάλτσα με γιαούρτι, αγγούρι και σκόρδο.</span><span class="lang-en">Yogurt, cucumber and garlic dip.</span></span>
-        </div>
-        <div class="item">
-            <span class="item-name"><span class="lang-el">Μελιτζανοσαλάτα</span><span class="lang-en">Eggplant Salad</span></span>
-            <span class="item-desc"><span class="lang-el">Καπνιστή σαλάτα από ψητή μελιτζάνα.</span><span class="lang-en">Smoked eggplant dip with herbs.</span></span>
-        </div>
-        <div class="item">
-            <span class="item-name"><span class="lang-el">Ρεβυθοκεφτέδες</span><span class="lang-en">Chickpea Fritters</span></span>
-            <span class="item-desc"><span class="lang-el">Συνοδεύονται με τζατζίκι.</span><span class="lang-en">Handmade chickpea balls with side tzatziki.</span></span>
-        </div>
-        <div class="item">
-            <span class="item-name"><span class="lang-el">Κολοκυθοκεφτέδες</span><span class="lang-en">Zucchini Fritters</span></span>
-            <span class="item-desc"><span class="lang-el">Με φρέσκο κολοκύθι και μυρωδικά.</span><span class="lang-en">Fried zucchini balls with herbs.</span></span>
-        </div>
-        <div class="item">
-            <span class="item-name"><span class="lang-el">Μελιτζάνες / Κολοκυθάκια Τηγανητά</span><span class="lang-en">Fried Eggplants / Zucchini</span></span>
-            <span class="item-desc"><span class="lang-el">Σε κουρκούτι μπύρας, τραγανές.</span><span class="lang-en">Crispy beer-battered fried vegetables.</span></span>
-        </div>
-        <div class="item">
-            <span class="item-name"><span class="lang-el">Κεφτεδάκια</span><span class="lang-en">Meatballs</span></span>
-            <span class="item-desc"><span class="lang-el">Παραδοσιακά, με πατάτες τηγανητές.</span><span class="lang-en">Traditional meatballs with French fries.</span></span>
-        </div>
+        <div class="item"><span class="item-name">Τυροκαυτερή / Τζατζίκι</span><span class="item-desc"><span class="lang-el">Παραδοσιακές χειροποίητες αλοιφές.</span><span class="lang-en">Spicy feta dip or traditional tzatziki.</span></span></div>
+        <div class="item"><span class="item-name">Μελιτζανοσαλάτα</span><span class="item-desc"><span class="lang-el">Καπνιστή με ψητή μελιτζάνα.</span><span class="lang-en">Traditional eggplant dip.</span></span></div>
+        <div class="item"><span class="item-name">Ρεβυθοκεφτέδες</span><span class="item-desc"><span class="lang-el">Χειροποίητοι με τζατζίκι.</span><span class="lang-en">Handmade chickpea balls with tzatziki.</span></span></div>
+        <div class="item"><span class="item-name">Κολοκυθοκεφτέδες</span><span class="item-desc"><span class="lang-el">Με φρέσκο κολοκύθι και μυρωδικά.</span><span class="lang-en">Zucchini fritters with herbs.</span></span></div>
+        <div class="item"><span class="item-name">Μελιτζάνες / Κολοκυθάκια</span><span class="item-desc"><span class="lang-el">Τηγανητά σε κουρκούτι μπύρας.</span><span class="lang-en">Fried eggplants or zucchini slices.</span></span></div>
+        <div class="item"><span class="item-name">Κεφτεδάκια</span><span class="item-desc"><span class="lang-el">Παραδοσιακά με πατάτες τηγανητές.</span><span class="lang-en">Fried meatballs with French fries.</span></span></div>
     </div>
 
     <h2 class="cat-title" id="cheese"><span class="lang-el">Τυριά</span><span class="lang-en">Cheese</span></h2>
     <div class="menu-grid">
-        <div class="item">
-            <span class="item-name"><span class="lang-el">Φέτα Σαγανάκι</span><span class="lang-en">Feta Saganaki</span></span>
-            <span class="item-desc"><span class="lang-el">Σε τραγανό φύλλο με μέλι και σουσάμι.</span><span class="lang-en">Wrapped in phyllo with honey and sesame.</span></span>
-        </div>
-        <div class="item">
-            <span class="item-name"><span class="lang-el">Τυροκροκέτες</span><span class="lang-en">Cheese Croquettes</span></span>
-            <span class="item-desc"><span class="lang-el">Με λιωμένα τυριά και μαρμελάδα ντομάτας.</span><span class="lang-en">Mixed melted cheeses with tomato jam.</span></span>
-        </div>
-        <div class="item">
-            <span class="item-name"><span class="lang-el">Κεφαλοτύρι Σαγανάκι</span><span class="lang-en">Fried Kefalotyri</span></span>
-            <span class="item-desc"><span class="lang-el">Τηγανισμένο σκληρό τυρί.</span><span class="lang-en">Traditional fried hard yellow cheese.</span></span>
-        </div>
-        <div class="item">
-            <span class="item-name"><span class="lang-el">Φέτα Μεσσηνίας</span><span class="lang-en">Messinian Feta</span></span>
-            <span class="item-desc"><span class="lang-el">Με ελαιόλαδο και ρίγανη.</span><span class="lang-en">Local feta cheese with olive oil.</span></span>
-        </div>
+        <div class="item"><span class="item-name">Φέτα Σαγανάκι</span><span class="item-desc"><span class="lang-el">Σε τραγανό φύλλο με μέλι και σουσάμι.</span><span class="lang-en">Wrapped in phyllo with honey and sesame.</span></span></div>
+        <div class="item"><span class="item-name">Τυροκροκέτες</span><span class="item-desc"><span class="lang-el">Με λιωμένα τυριά και μαρμελάδα ντομάτας.</span><span class="lang-en">Cheese croquettes with tomato jam.</span></span></div>
+        <div class="item"><span class="item-name">Κεφαλοτύρι Σαγανάκι</span><span class="item-desc"><span class="lang-el">Τηγανισμένο σκληρό τυρί.</span><span class="lang-en">Fried traditional yellow cheese.</span></span></div>
     </div>
 
     <h2 class="cat-title" id="seafood"><span class="lang-el">Θαλασσινά</span><span class="lang-en">Seafood</span></h2>
     <div class="menu-grid">
-        <div class="item">
-            <span class="item-name"><span class="lang-el">Ψάρι της Ημέρας ⚓</span><span class="lang-en">Fish of the Day ⚓</span></span>
-            <span class="item-desc"><span class="lang-el">Φρέσκα ψάρια που έπιασε ο ψαράς μας σήμερα.</span><span class="lang-en">The freshest catch of the day from our local fisherman.</span></span>
-        </div>
-        <div class="item">
-            <span class="item-name"><span class="lang-el">Χταπόδι Ψητό 🔥</span><span class="lang-en">Grilled Octopus 🔥</span></span>
-            <span class="item-desc"><span class="lang-el">Ζουμερό στα κάρβουνα.</span><span class="lang-en">Tender charcoal-grilled octopus.</span></span>
-        </div>
-        <div class="item">
-            <span class="item-name"><span class="lang-el">Καλαμάρι Τηγανητό</span><span class="lang-en">Fried Squid</span></span>
-            <span class="item-desc"><span class="lang-el">Τραγανό και φρέσκο.</span><span class="lang-en">Fresh and crispy fried calamari.</span></span>
-        </div>
-        <div class="item">
-            <span class="item-name"><span class="lang-el">Γαρίδες Σχάρας</span><span class="lang-en">Grilled Shrimps</span></span>
-            <span class="item-desc"><span class="lang-el">8 μεγάλες γαρίδες με μυρωδικά.</span><span class="lang-en">8 large grilled shrimps.</span></span>
-        </div>
-        <div class="item">
-            <span class="item-name"><span class="lang-el">Μύδια Σχάρας</span><span class="lang-en">Grilled Mussels</span></span>
-            <span class="item-desc"><span class="lang-el">Φρέσκα μύδια στη σχάρα.</span><span class="lang-en">Freshly grilled mussels.</span></span>
-        </div>
-        <div class="item">
-            <span class="item-name"><span class="lang-el">Γαύρος / Σαρδέλα</span><span class="lang-en">Anchovies / Sardines</span></span>
-            <span class="item-desc"><span class="lang-el">Ψητά ή τηγανητά.</span><span class="lang-en">Grilled or fried local small fish.</span></span>
-        </div>
+        <div class="item"><span class="item-name">Ψάρι της Ημέρας ⚓</span><span class="item-desc"><span class="lang-el">Φρέσκα ψάρια από τον ψαρά μας.</span><span class="lang-en">Fresh local fish catch of the day.</span></span></div>
+        <div class="item"><span class="item-name">Χταπόδι Ψητό 🔥</span><span class="item-desc"><span class="lang-el">Ζουμερό στα κάρβουνα.</span><span class="lang-en">Charcoal grilled octopus.</span></span></div>
+        <div class="item"><span class="item-name">Καλαμάρι Τηγανητό</span><span class="item-desc"><span class="lang-el">Τραγανό και φρέσκο.</span><span class="lang-en">Fresh fried squid.</span></span></div>
+        <div class="item"><span class="item-name">Γαρίδες Σχάρας</span><span class="item-desc"><span class="lang-el">8 μεγάλες γαρίδες με μυρωδικά.</span><span class="lang-en">8 large grilled shrimps.</span></span></div>
+        <div class="item"><span class="item-name">Γαύρος / Σαρδέλα</span><span class="item-desc"><span class="lang-el">Ψητά ή τηγανητά (εποχής).</span><span class="lang-en">Grilled or fried small local fish.</span></span></div>
+        <div class="item"><span class="item-name">Μύδια Σχάρας</span><span class="item-desc"><span class="lang-el">Φρέσκα μύδια στα κάρβουνα.</span><span class="lang-en">Fresh grilled mussels.</span></span></div>
     </div>
 
-    <h2 class="cat-title" id="meat"><span class="lang-el">Κρεατικά & Grill</span><span class="lang-en">Meat & Grill</span></h2>
+    <h2 class="cat-title" id="meat"><span class="lang-el">Κρεατικά</span><span class="lang-en">Meat & Grill</span></h2>
     <div class="menu-grid">
-        <div class="item">
-            <span class="item-name"><span class="lang-el">Λουκάνικο Καλαμάτας</span><span class="lang-en">Kalamata Sausage</span></span>
-            <span class="item-desc"><span class="lang-el">Με πορτοκάλι και πατάτες τηγανητές.</span><span class="lang-en">Traditional recipe with orange zest.</span></span>
-        </div>
-        <div class="item">
-            <span class="item-name"><span class="lang-el">Ψαρονέφρι Σχάρας</span><span class="lang-en">Pork Tenderloin</span></span>
-            <span class="item-desc"><span class="lang-el">Στη σχάρα με πατάτες ή λαχανικά.</span><span class="lang-en">Grilled, served with fries or vegetables.</span></span>
-        </div>
-        <div class="item">
-            <span class="item-name"><span class="lang-el">Μπιφτέκι Μοσχαρίσιο</span><span class="lang-en">Beef Burger</span></span>
-            <span class="item-desc"><span class="lang-el">100% φρέσκος κιμάς (Απλό ή Γεμιστό).</span><span class="lang-en">Plain or stuffed fresh ground beef.</span></span>
-        </div>
-        <div class="item">
-            <span class="item-name"><span class="lang-el">Πανσετάκια</span><span class="lang-en">Pork Belly</span></span>
-            <span class="item-desc"><span class="lang-el">Ζουμερά πανσετάκια με πατάτες.</span><span class="lang-en">Grilled pork belly served with fries.</span></span>
-        </div>
-        <div class="item">
-            <span class="item-name"><span class="lang-el">Κοτόπουλο Σουβλάκι</span><span class="lang-en">Chicken Souvlaki</span></span>
-            <span class="item-desc"><span class="lang-el">Μαριναρισμένο στήθος με πατάτες.</span><span class="lang-en">Grilled chicken skewers with fries.</span></span>
-        </div>
-        <div class="item">
-            <span class="item-name"><span class="lang-el">Σνίτσελ</span><span class="lang-en">Schnitzel</span></span>
-            <span class="item-desc"><span class="lang-el">Χοιρινό ή κοτόπουλο με πατάτες.</span><span class="lang-en">Pork or chicken schnitzel with fries.</span></span>
-        </div>
+        <div class="item"><span class="item-name">Λουκάνικο Καλαμάτας</span><span class="item-desc"><span class="lang-el">Με πορτοκάλι και πατάτες τηγανητές.</span><span class="lang-en">Local sausage with orange zest and fries.</span></span></div>
+        <div class="item"><span class="item-name">Ψαρονέφρι Σχάρας</span><span class="item-desc"><span class="lang-el">Με πατάτες τηγανητές.</span><span class="lang-en">Grilled pork tenderloin with fries.</span></span></div>
+        <div class="item"><span class="item-name">Μπιφτέκι Μοσχαρίσιο</span><span class="item-desc"><span class="lang-el">100% φρέσκος κιμάς (Απλό ή Γεμιστό).</span><span class="lang-en">Fresh beef patty (Plain or Stuffed).</span></span></div>
+        <div class="item"><span class="item-name">Πανσετάκια</span><span class="item-desc"><span class="lang-el">Ζουμερά στα κάρβουνα.</span><span class="lang-en">Grilled pork belly slices.</span></span></div>
+        <div class="item"><span class="item-name">Κοτόπουλο Σουβλάκι</span><span class="item-desc"><span class="lang-el">Μαριναρισμένο στήθος με πατάτες.</span><span class="lang-en">Grilled chicken skewers with fries.</span></span></div>
+        <div class="item"><span class="item-name">Σνίτσελ</span><span class="item-desc"><span class="lang-el">Χοιρινό ή κοτόπουλο με πατάτες.</span><span class="lang-en">Pork or chicken schnitzel with fries.</span></span></div>
     </div>
 
-    <h2 class="cat-title" id="pasta"><span class="lang-el">Ζυμαρικά</span><span class="lang-en">Pasta</span></h2>
+    <h2 class="cat-title" id="pasta"><span class="lang-el">Ζυμαρικά & Ποικιλίες</span><span class="lang-en">Pasta & Platters</span></h2>
     <div class="menu-grid">
-        <div class="item">
-            <span class="item-name"><span class="lang-el">Γαριδομακαρονάδα</span><span class="lang-en">Shrimp Pasta</span></span>
-            <span class="item-desc"><span class="lang-el">Σπαγγέτι με 6 μεγάλες γαρίδες σε σάλτσα ντομάτας.</span><span class="lang-en">Spaghetti with 6 large shrimps in tomato sauce.</span></span>
-        </div>
-        <div class="item">
-            <span class="item-name"><span class="lang-el">Κοτόπουλο Αλα Κρεμ</span><span class="lang-en">Chicken a la Creme</span></span>
-            <span class="item-desc"><span class="lang-el">Με μανιτάρια και παρμεζάνα.</span><span class="lang-en">Chicken with mushrooms and parmesan.</span></span>
-        </div>
-        <div class="item">
-            <span class="item-name"><span class="lang-el">Καρμπονάρα</span><span class="lang-en">Carbonara</span></span>
-            <span class="item-desc"><span class="lang-el">Κλασική συνταγή με μπέικον και κρέμα.</span><span class="lang-en">Classic cream and bacon pasta.</span></span>
-        </div>
-    </div>
-
-    <h2 class="cat-title"><span class="lang-el">Ποικιλίες</span><span class="lang-en">Platters</span></h2>
-    <div class="menu-grid">
-        <div class="item">
-            <span class="item-name"><span class="lang-el">Mix Grill (Κρεατικών)</span><span class="lang-en">Meat Platter</span></span>
-            <span class="item-desc"><span class="lang-el">Μπιφτέκι, πανσέτα, λουκάνικο, κοτόπουλο, πατάτες.</span><span class="lang-en">Mixed grilled meats for sharing.</span></span>
-        </div>
-        <div class="item">
-            <span class="item-name"><span class="lang-el">Ποικιλία Θαλασσινών</span><span class="lang-en">Seafood Platter</span></span>
-            <span class="item-desc"><span class="lang-el">Γαρίδες, μύδια, σαρδέλα, γαύρος, καλαμάρια, χταπόδι.</span><span class="lang-en">Selection of fried and grilled seafood.</span></span>
-        </div>
+        <div class="item"><span class="item-name">Γαριδομακαρονάδα</span><span class="item-desc"><span class="lang-el">Σπαγγέτι με 6 μεγάλες γαρίδες.</span><span class="lang-en">Spaghetti with 6 large shrimps.</span></span></div>
+        <div class="item"><span class="item-name">Mix Grill (Κρεατικών)</span><span class="item-desc"><span class="lang-el">Ποικιλία για την παρέα.</span><span class="lang-en">Mixed meat platter.</span></span></div>
+        <div class="item"><span class="item-name">Ποικιλία Θαλασσινών</span><span class="item-desc"><span class="lang-el">Όλα τα καλά της θάλασσας σε ένα πιάτο.</span><span class="lang-en">Large seafood platter.</span></span></div>
     </div>
 
 </div>
 
-<footer>
-    <div class="footer-info">
-        <h3>OESTE</h3>
-        <p class="lang-el">📍 Σαράντα Εκκλησιών 1, Καλαμάτα, 24100</p>
-        <p class="lang-en">📍 1 Saranta Ekklision Str., Kalamata, 24100</p>
-        <p>🕒 08:00 - 19:00</p>
-        <p>📞 +30 27210 62888</p>
-        <a href="https://share.google/38fZHFV6DqOk2HAKX" target="_blank" class="map-btn">
-            <span class="lang-el">📍 Οδηγίες Χάρτη</span>
-            <span class="lang-en">📍 Get Directions</span>
-        </a>
-    </div>
-</footer>
-
 <script>
     function setLang(lang) {
-        document.body.setAttribute('lang', lang);
+        if(lang === 'en') document.body.setAttribute('lang', 'en');
+        else document.body.removeAttribute('lang');
         document.getElementById('btn-el').classList.toggle('active', lang === 'el');
         document.getElementById('btn-en').classList.toggle('active', lang === 'en');
     }
 
-    // Slideshow Logic
     let currentSlide = 0;
     const slides = document.querySelectorAll('.slide');
-    const totalSlides = slides.length;
-
-    function nextSlide() {
+    setInterval(() => {
         slides[currentSlide].classList.remove('active');
-        currentSlide = (currentSlide + 1) % totalSlides;
+        currentSlide = (currentSlide + 1) % slides.length;
         slides[currentSlide].classList.add('active');
-    }
-
-    // Αλλαγή φωτογραφίας κάθε 4 δευτερόλεπτα
-    setInterval(nextSlide, 4000);
+    }, 4000);
 </script>
 
 </body>
