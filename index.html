@@ -33,21 +33,34 @@
 
         .logo-small { height: 45px; width: auto; }
 
-        .action-buttons { display: flex; gap: 8px; }
+        .action-buttons { display: flex; gap: 8px; align-items: center; }
+        
         .action-btn { 
             text-decoration: none; 
             color: #fff; 
-            padding: 6px 10px; 
+            padding: 8px 12px; 
             border-radius: 5px; 
             font-size: 0.75em; 
             font-weight: bold;
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 6px;
+            transition: 0.3s;
         }
+
+        /* Ρύθμιση για το τηλέφωνο στο Laptop */
+        .phone-text { display: none; } /* Κρυφό στο κινητό */
+        
+        @media (min-width: 1024px) {
+            .phone-text { display: inline; font-size: 0.9em; }
+            .btn-call { background: #444 !important; cursor: default; } /* Γκρι στο laptop γιατί δεν είναι link */
+            .btn-call span.call-label { display: none; } /* Κρύβει το "Κλήση" */
+        }
+
         .btn-call { background: var(--success); }
         .btn-map { background: var(--accent-color); }
         .btn-insta { background: var(--insta); }
+        .btn-insta:hover { opacity: 0.8; transform: scale(1.05); }
 
         /* Slideshow */
         .hero { position: relative; width: 100%; height: 40vh; overflow: hidden; }
@@ -58,14 +71,14 @@
 
         /* Navigation */
         .nav-sections { background: #fff; display: flex; gap: 8px; padding: 12px; overflow-x: auto; border-bottom: 1px solid #ddd; position: sticky; top: 65px; z-index: 2000; }
-        .btn-nav { text-decoration: none; padding: 8px 12px; border: 1px solid var(--accent-color); color: var(--accent-color); border-radius: 4px; font-size: 0.7em; font-weight: bold; white-space: nowrap; }
+        .btn-nav { text-decoration: none; padding: 8px 12px; border: 1px solid var(--accent-color); color: var(--accent-color); border-radius: 4px; font-size: 0.7em; font-weight: bold; white-space: nowrap; transition: 0.2s; }
+        .btn-nav:hover { background: var(--accent-color); color: #fff; }
 
         .container { max-width: 1000px; margin: 0 auto; padding: 10px 20px 100px; }
         .cat-title { text-align: center; color: var(--accent-color); border-bottom: 2px solid var(--accent-color); padding-bottom: 8px; margin: 40px 0 20px; font-family: 'Playfair Display', serif; text-transform: uppercase; font-size: 1.4em; }
         
         .menu-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
-        .item { background: #fff; padding: 15px; border-radius: 8px; border-left: 5px solid var(--accent-color); box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: 0.3s; }
-        .item:hover { transform: translateY(-2px); }
+        .item { background: #fff; padding: 15px; border-radius: 8px; border-left: 5px solid var(--accent-color); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
         .item-name { font-weight: bold; display: block; margin-bottom: 4px; font-size: 1.05em; }
         .item-desc { font-size: 0.85em; color: #666; font-style: italic; line-height: 1.4; }
 
@@ -75,7 +88,6 @@
 
         @media (min-width: 768px) { .menu-grid { grid-template-columns: 1fr 1fr; } }
 
-        /* Language Logic */
         [lang="en"] .lang-el { display: none; }
         body:not([lang="en"]) .lang-en { display: none; }
     </style>
@@ -90,7 +102,10 @@
 <div class="top-bar">
     <img src="logo.png" alt="OESTE" class="logo-small">
     <div class="action-buttons">
-        <a href="tel:+302721062888" class="action-btn btn-call">📞 <span class="lang-el">Κλήση</span><span class="lang-en">Call</span></a>
+        <a href="tel:+302721062888" class="action-btn btn-call">
+            📞 <span class="call-label lang-el">Κλήση</span><span class="call-label lang-en">Call</span>
+            <span class="phone-text">27210 62888</span>
+        </a>
         <a href="https://share.google/38fZHFV6DqOk2HAKX" target="_blank" class="action-btn btn-map">📍 <span class="lang-el">Χάρτης</span><span class="lang-en">Map</span></a>
         <a href="https://www.instagram.com/oeste.kalamata" target="_blank" class="action-btn btn-insta">📸 Insta</a>
     </div>
@@ -148,11 +163,11 @@
         <div class="item"><span class="item-name">Χταπόδι Ψητό 🔥</span><span class="item-desc"><span class="lang-el">Ζουμερό στα κάρβουνα.</span><span class="lang-en">Charcoal grilled octopus.</span></span></div>
         <div class="item"><span class="item-name">Καλαμάρι Τηγανητό</span><span class="item-desc"><span class="lang-el">Τραγανό και φρέσκο.</span><span class="lang-en">Fresh fried squid.</span></span></div>
         <div class="item"><span class="item-name">Γαρίδες Σχάρας</span><span class="item-desc"><span class="lang-el">8 μεγάλες γαρίδες με μυρωδικά.</span><span class="lang-en">8 large grilled shrimps.</span></span></div>
-        <div class="item"><span class="item-name">Γαύρος / Σαρδέλα</span><span class="item-desc"><span class="lang-el">Ψητά ή τηγανητά (εποχής).</span><span class="lang-en">Grilled or fried small local fish.</span></span></div>
+        <div class="item"><span class="item-name">Γαύρος / Σαρδέλα</span><span class="item-desc"><span class="lang-el">Ψητά ή τηγανητά.</span><span class="lang-en">Grilled or fried small local fish.</span></span></div>
         <div class="item"><span class="item-name">Μύδια Σχάρας</span><span class="item-desc"><span class="lang-el">Φρέσκα μύδια στα κάρβουνα.</span><span class="lang-en">Fresh grilled mussels.</span></span></div>
     </div>
 
-    <h2 class="cat-title" id="meat"><span class="lang-el">Κρεατικά</span><span class="lang-en">Meat & Grill</span></h2>
+    <h2 class="cat-title" id="meat"><span class="lang-el">Κρεατικά</span><span class="lang-en">Meat</span></h2>
     <div class="menu-grid">
         <div class="item"><span class="item-name">Λουκάνικο Καλαμάτας</span><span class="item-desc"><span class="lang-el">Με πορτοκάλι και πατάτες τηγανητές.</span><span class="lang-en">Local sausage with orange zest and fries.</span></span></div>
         <div class="item"><span class="item-name">Ψαρονέφρι Σχάρας</span><span class="item-desc"><span class="lang-el">Με πατάτες τηγανητές.</span><span class="lang-en">Grilled pork tenderloin with fries.</span></span></div>
@@ -165,7 +180,8 @@
     <h2 class="cat-title" id="pasta"><span class="lang-el">Ζυμαρικά & Ποικιλίες</span><span class="lang-en">Pasta & Platters</span></h2>
     <div class="menu-grid">
         <div class="item"><span class="item-name">Γαριδομακαρονάδα</span><span class="item-desc"><span class="lang-el">Σπαγγέτι με 6 μεγάλες γαρίδες.</span><span class="lang-en">Spaghetti with 6 large shrimps.</span></span></div>
-        <div class="item"><span class="item-name">Mix Grill (Κρεατικών)</span><span class="item-desc"><span class="lang-el">Ποικιλία για την παρέα.</span><span class="lang-en">Mixed meat platter.</span></span></div>
+        <div class="item"><span class="item-name">Κοτόπουλο Αλα Κρεμ</span><span class="item-desc"><span class="lang-el">Με μανιτάρια και κρέμα γάλακτος.</span><span class="lang-en">Chicken with mushrooms and cream.</span></span></div>
+        <div class="item"><span class="item-name">Mix Grill (Κρεατικών)</span><span class="item-desc"><span class="lang-el">Ποικιλία για την παρέα.</span><span class="lang-en">Mixed meat platter for the table.</span></span></div>
         <div class="item"><span class="item-name">Ποικιλία Θαλασσινών</span><span class="item-desc"><span class="lang-el">Όλα τα καλά της θάλασσας σε ένα πιάτο.</span><span class="lang-en">Large seafood platter.</span></span></div>
     </div>
 
