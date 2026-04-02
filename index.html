@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OESTE Café Bar Restaurant | Kalamata Menu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #121212;
+            --text-color: #f5f5f5;
+            --accent-color: #ffbf00;
+            --card-bg: #1e1e1e;
+            --success: #28a745;
+        }
+        body { font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; color: var(--text-color); background-color: var(--bg-color); scroll-behavior: smooth; overflow-x: hidden; }
+        
+        /* Language Switcher */
+        .lang-switch { display: flex; justify-content: center; gap: 10px; padding: 12px; background: #000; position: sticky; top: 0; z-index: 3000; border-bottom: 1px solid var(--accent-color); }
+        .lang-btn { background: none; border: 1px solid #fff; color: #fff; padding: 6px 15px; cursor: pointer; font-size: 0.85em; border-radius: 4px; text-transform: uppercase; }
+        .lang-btn.active { background: var(--accent-color); color: #000; font-weight: bold; border-color: var(--accent-color); }
+
+        /* Header with Logo & Slideshow */
+        header { position: relative; width: 100%; height: 60vh; overflow: hidden; display: flex; align-items: center; justify-content: center; border-bottom: 2px solid var(--accent-color); }
+        .logo { max-width: 180px; height: auto; position: relative; z-index: 100; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.7)); }
+
+        /* Slideshow */
+        .slideshow { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+        .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; transition: opacity 1s ease-in-out; }
+        .slide.active { opacity: 1; }
+        .slide-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); } /* Overlay for logo contrast */
+
+        /* Navigation */
+        .nav-sections { background: #000; display: flex; justify-content: start; gap: 8px; padding: 15px; overflow-x: auto; white-space: nowrap; position: sticky; top: 52px; z-index: 2000; border-bottom: 1px solid #333; }
+        .btn-nav { text-decoration: none; padding: 10px 18px; background: var(--card-bg); color: #fff; border-radius: 4px; font-size: 0.75em; font-weight: 700; text-transform: uppercase; border: 1px solid #444; }
+
+        /* Floating Call Button */
+        .mobile-call-tap { position: fixed; bottom: 20px; right: 20px; background: var(--success); color: white; padding: 15px 25px; border-radius: 50px; text-decoration: none; font-weight: bold; box-shadow: 0 5px 20px rgba(0,0,0,0.5); z-index: 2000; display: flex; align-items: center; gap: 8px; font-size: 1em; }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 10px 20px 120px 20px; }
+        .cat-title { text-align: center; text-transform: uppercase; letter-spacing: 2px; margin: 50px 0 20px; border-bottom: 2px solid var(--accent-color); padding-bottom: 10px; font-size: 1.5em; color: var(--accent-color); font-family: 'Playfair Display', serif; background-color: var(--bg-color); }
+
+        /* Menu Items - Clean Text */
+        .menu-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
+        .item { padding: 20px; background: var(--card-bg); border-radius: 8px; border-left: 4px solid var(--accent-color); transition: 0.3s; }
+        .item:hover { transform: translateY(-2px); background: #252525; }
+        .item-name { font-weight: 700; font-size: 1.15em; color: #fff; display: block; margin-bottom: 5px; }
+        .item-desc { font-size: 0.9em; color: #aaa; font-style: italic; line-height: 1.4; display: block; }
+
+        footer { background: #000; color: #fff; padding: 50px 20px; text-align: center; border-top: 1px solid var(--accent-color); }
+        .footer-info h3 { font-family: 'Playfair Display', serif; color: var(--accent-color); font-size: 1.8em; margin-bottom: 15px; }
+        .map-btn { display: inline-block; margin-top: 20px; color: #000; background: var(--accent-color); padding: 12px 25px; text-decoration: none; border-radius: 4px; font-weight: bold; text-transform: uppercase; }
+
+        @media (min-width: 768px) { .menu-grid { grid-template-columns: 1fr 1fr; } header { height: 70vh; } .logo { max-width: 220px; } }
+        
+        /* Language Hiding */
+        .lang-en { display: none; }
+        [lang="en"] .lang-en { display: block; }
+        [lang="en"] .lang-el { display: none; }
+        [lang="en"] span.lang-en { display: inline; }
+        [lang="en"] span.lang-el { display: none; }
+    </style>
+</head>
+<body lang="el">
+
+<div class="lang-switch">
+    <button id="btn-el" class="lang-btn active" onclick="setLang('el')">Ελληνικά</button>
+    <button id="btn-en" class="lang-btn" onclick="setLang('en')">English</button>
+</div>
+
+<header>
+    <div class="slideshow">
+        <div class="slide active" style="background-image: url('slide1.jpg');"></div>
+        <div class="slide" style="background-image: url('slide2.jpg');"></div>
+        <div class="slide" style="background-image: url('slide3.jpg');"></div>
+        <div class="slide-overlay"></div> </div>
+    <img src="image_3463be.png" alt="OESTE Logo" class="logo">
+</header>
+
+<a href="tel:+302721062888" class="mobile-call-tap">
+    <span class="lang-el">📞 Κράτηση</span>
+    <span class="lang-en">📞 Reservation</span>
+</a>
+
+<div class="nav-sections">
+    <a href="#salads" class="btn-nav"><span class="lang-el">Σαλάτες</span><span class="lang-en">Salads</span></a>
+    <a href="#appetizers" class="btn-nav"><span class="lang-el">Ορεκτικά</span><span class="lang-en">Appetizers</span></a>
+    <a href="#cheese" class="btn-nav"><span class="lang-el">Τυριά</span><span class="lang-en">Cheese</span></a>
+    <a href="#seafood" class="btn-nav"><span class="lang-el">Θαλασσινά</span><span class="lang-en">Seafood</span></a>
+    <a href="#meat" class="btn-nav"><span class="lang-el">Κρεατικά</span><span class="lang-en">Meat</span></a>
+    <a href="#pasta" class="btn-nav"><span class="lang-el">Ζυμαρικά</span><span class="lang-en">Pasta</span></a>
+</div>
+
+<div class="container">
+
+    <h2 class="cat-title" id="salads"><span class="lang-el">Σαλάτες</span><span class="lang-en">Salads</span></h2>
+    <div class="menu-grid">
+        <div class="item">
+            <span class="item-name"><span class="lang-el">Οέστε 🔥</span><span class="lang-en">Oeste Special 🔥</span></span>
+            <span class="item-desc"><span class="lang-el">Ντομάτα, ψητές πιπεριές Φλωρίνης, κρεμμύδι και τριμμένη φέτα.</span><span class="lang-en">Tomato, roasted Florina peppers, onion, crumbled feta.</span></span>
+        </div>
+        <div class="item">
+            <span class="item-name"><span class="lang-el">Χωριάτικη</span><span class="lang-en">Greek Salad</span></span>
+            <span class="item-desc"><span class="lang-el">Ντομάτα, αγγούρι, κρεμμύδι, φέτα Μεσσηνίας και ελιές.</span><span class="lang-en">Traditional Greek salad with feta and Kalamata olives.</span></span>
+        </div>
+        <div class="item">
+            <span class="item-name"><span class="lang-el">Ντάκος</span><span class="lang-en">Dakos</span></span>
+            <span class="item-desc"><span class="lang-el">Παξιμάδι, τριμμένη ντομάτα, φέτα και ρίγανη.</span><span class="lang-en">Cretan rusk with grated tomato, feta and oregano.</span></span>
+        </div>
+    </div>
+
+    <h2 class="cat-title" id="appetizers"><span class="lang-el">Ορεκτικά</span><span class="lang-en">Appetizers</span></h2>
+    <div class="menu-grid">
+        <div class="item">
+            <span class="item-name"><span class="lang-el">Τυροκαυτερή</span><span class="lang-en">Spicy Feta Dip</span></span>
+            <span class="item-desc"><span class="lang-el">Πικάντικη κρέμα με φέτα και καυτερή πιπεριά.</span><span class="lang-en">Spicy cheese cream with hot peppers.</span></span>
+        </div>
+        <div class="item">
+            <span class="item-name"><span class="lang-el">Τζατζίκι</span><span class="lang-en">Tzatziki</span></span>
+            <span class="item-desc"><span class="lang-el">Δροσερή σάλτσα με γιαούρτι, αγγούρι και σκόρδο.</span><span class="lang-en">Yogurt, cucumber and garlic dip.</span></span>
+        </div>
+        <div class="item">
+            <span class="item-name"><span class="lang-el">Ρεβυθοκεφτέδες</span><span class="lang-en">Chickpea Fritters</span></span>
+            <span class="item-desc"><span class="lang-el">Συνοδεύονται με τζατζίκι.</span><span class="lang-en">Handmade chickpea balls with side tzatziki.</span></span>
+        </div>
+    </div>
+
+    <h2 class="cat-title" id="seafood"><span class="lang-el">Θαλασσινά</span><span class="lang-en">Seafood</span></h2>
+    <div class="menu-grid">
+        <div class="item">
+            <span class="item-name"><span class="lang-el">Ψάρι της Ημέρας ⚓</span><span class="lang-en">Fish of the Day ⚓</span></span>
+            <span class="item-desc"><span class="lang-el">Φρέσκα ψάρια που έπιασε ο ψαράς μας σήμερα.</span><span class="lang-en">Fresh local catch. Ask for today's selection.</span></span>
+        </div>
+        <div class="item">
+            <span class="item-name"><span class="lang-el">Χταπόδι Ψητό 🔥</span><span class="lang-en">Grilled Octopus 🔥</span></span>
+            <span class="item-desc"><span class="lang-el">Ζουμερό στα κάρβουνα με λαδόξυδο.</span><span class="lang-en">Charcoal grilled with oil and vinegar.</span></span>
+        </div>
+        <div class="item">
+            <span class="item-name"><span class="lang-el">Καλαμάρι Τηγανητό</span><span class="lang-en">Fried Squid</span></span>
+            <span class="item-desc"><span class="lang-el">Τραγανό και φρέσκο.</span><span class="lang-en">Fresh and crispy fried calamari.</span></span>
+        </div>
+    </div>
+
+    <h2 class="cat-title" id="meat"><span class="lang-el">Κρεατικά & Grill</span><span class="lang-en">Meat & Grill</span></h2>
+    <div class="menu-grid">
+        <div class="item">
+            <span class="item-name"><span class="lang-el">Λουκάνικο Καλαμάτας</span><span class="lang-en">Kalamata Sausage</span></span>
+            <span class="item-desc"><span class="lang-el">Με πορτοκάλι και πατάτες τηγανητές.</span><span class="lang-en">Local recipe with orange zest.</span></span>
+        </div>
+        <div class="item">
+            <span class="item-name"><span class="lang-el">Ψαρονέφρι Σχάρας</span><span class="lang-en">Pork Tenderloin</span></span>
+            <span class="item-desc"><span class="lang-el">Με πατάτες ή ψητά λαχανικά.</span><span class="lang-en">Grilled tenderloin with side dish.</span></span>
+        </div>
+        <div class="item">
+            <span class="item-name"><span class="lang-el">Πανσετάκια</span><span class="lang-en">Pork Belly</span></span>
+            <span class="item-desc"><span class="lang-el">Ζουμερά πανσετάκια με πατάτες.</span><span class="lang-en">Juicy pork belly slices with fries.</span></span>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <div class="footer-info">
+        <h3>OESTE</h3>
+        <p class="lang-el">📍 Σαράντα Εκκλησιών 1, Καλαμάτα, 24100</p>
+        <p class="lang-en">📍 1 Saranta Ekklision Str., Kalamata, 24100</p>
+        <p>🕒 08:00 - 19:00</p>
+        <p>📞 +30 27210 62888</p>
+        <a href="https://share.google/38fZHFV6DqOk2HAKX" target="_blank" class="map-btn">
+            <span class="lang-el">📍 Οδηγίες Χάρτη</span>
+            <span class="lang-en">📍 Get Directions</span>
+        </a>
+    </div>
+</footer>
+
+<script>
+    function setLang(lang) {
+        document.body.setAttribute('lang', lang);
+        document.getElementById('btn-el').classList.toggle('active', lang === 'el');
+        document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    }
+
+    // Slideshow Logic
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const totalSlides = slides.length;
+
+    function nextSlide() {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (currentSlide + 1) % totalSlides;
+        slides[currentSlide].classList.add('active');
+    }
+
+    // Αλλαγή φωτογραφίας κάθε 4 δευτερόλεπτα
+    setInterval(nextSlide, 4000);
+</script>
+
+</body>
+</html>
